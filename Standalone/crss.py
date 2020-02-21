@@ -1,4 +1,5 @@
 import io
+import urllib
 
 def getConfig(filePath):
     """
@@ -11,9 +12,17 @@ def getConfig(filePath):
     :returns: vector of tuples with rss config parsed
 
     """
+    rss_list = []
     config_file = open(filePath, "r", encoding="utf-8" )
+
     for linea in config_file:
-        print (linea)
+        l=[]
 
-getConfig("urls")
+        for item in linea.split('|'):
+            l.append(item.strip())
 
+        rss_list.append(l)
+
+    return rss_list
+
+print (getConfig("urls"))

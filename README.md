@@ -1,5 +1,9 @@
 # CRSS
 Command Client for get Rss feeds.
+----------
+# 2 Versions
+- Library dependent
+- Standalone
 
 ## Objectives
 - Gets from a file (each line)
