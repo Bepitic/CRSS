@@ -1,5 +1,5 @@
 import io
-import urllib
+import urllib.request as dl
 
 def getConfig(filePath):
     """
