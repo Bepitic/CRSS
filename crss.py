@@ -12,7 +12,8 @@ def getConfig(filePath):
 
     """
     config_file = open(filePath, "r", encoding="utf-8" )
-    vlf_config  = config_file.readlines()
-    for linea in vlf_config:
+    for linea in config_file:
         print (linea)
+
+getConfig("urls")
 
