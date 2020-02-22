@@ -1,3 +1,5 @@
+import xml
+import time
 import io
 import urllib.request as dl
 
@@ -25,4 +27,14 @@ def getConfig(filePath):
 
     return rss_list
 
-print (getConfig("urls"))
+def getRss(rss_list):
+    for l in rss_list:
+        print(l[0])
+        with dl.urlopen(l[0]) as l[0]:
+            l[0] = l[0].read()
+            ##l[0] = xml.etree.ElementTree.fromstring(l[0])
+    ##print(rss_list[0][0])
+
+
+getRss(getConfig('urls'))
+time.sleep(5)
