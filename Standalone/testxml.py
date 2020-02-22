@@ -56,7 +56,7 @@ def setConfig(list_config, filePath):
     """
     config_file = open(filePath, "w", encoding="utf-8" )
     for linea in list_config:
-        config = "" 
+        config = ""
         for item in linea:
             config += item + "|"
         config_file.write(config[:-1] +'\n')
