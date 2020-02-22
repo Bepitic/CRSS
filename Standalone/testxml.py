@@ -11,7 +11,6 @@ def parseRss(pathRss, regularexpresion, pd=None, dataItem="link"):
     :pd: TODO
     :dataItem: TODO
     :returns: TODO
-
     """
     tree = ET.parse(pathRss)
     items = tree.findall("*/item")
@@ -21,33 +20,49 @@ def parseRss(pathRss, regularexpresion, pd=None, dataItem="link"):
         if ( re.search( regularexpresion, e_title.text ) ):
             elemento = []
             elemento.append(e_title.text)
-            elemento.append(item.find("link").text)
+            elemento.append(item.find(dataItem).text)
             elemento.append(item.find("pubDate").text)
             elementos_rss.append(elemento)
+    return elementos_rss
 
 def getConfig(filePath):
     """
     Get the config file and parses it into a vector of tuples:
     each line 1 vector.
-    [ http rss link ] [ Alias ] [wildcard]
-    www.rss1.com/feed/rss "alias of rss1" "*car*"
+    http rss link|Alias|wildcard|date|itemToGetTheData
+    www.rss1.com/feed/rss|alias of rss1|car
 
     :filePath: Path to the config file
     :returns: vector of tuples with rss config parsed
-
     """
     rss_list = []
     config_file = open(filePath, "r", encoding="utf-8" )
-
     for linea in config_file:
         l=[]
-
         for item in linea.split('|'):
             l.append(item.strip())
-
         rss_list.append(l)
-
     return rss_list
+
+def setConfig(list_config, filePath):
+    """
+    set the config file and parses it from a list:
+    each line 1 vector.
+    http rss link|Alias|wildcard|date|itemToGetTheData
+    www.rss1.com/feed/rss|alias of rss1|car
+
+    :filePath: Path to the config file
+    :returns: vector of tuples with rss config parsed
+    """
+    config_file = open(filePath, "w", encoding="utf-8" )
+    for linea in list_config:
+        config = "" 
+        for item in linea:
+            config += item + "|"
+        config_file.write(config[:-1] +'\n')
+    config_file.close()
+
+
 
 def dl(rss_list,file_string):
         with http.urlopen(rss_list) as html_dl:
@@ -55,8 +70,3 @@ def dl(rss_list,file_string):
             f_xml = open(file_string+'.xml',"wb")
             f_xml.write(html_dl)
             f_xml.close()
-
-
-
-            ##l[0] = xml.etree.ElementTree.fromstring(l[0])
-    ##print(rss_list[0][0])
